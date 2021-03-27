@@ -5,7 +5,6 @@ import com.affid.lesson.entities.Film;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,6 +22,9 @@ public class LocalCinemaClient implements CinemaClient {
         loadFilms();
     }
 
+    /**
+     * Загрузка актеров из базы данных в клиент
+     */
     private void loadActors() {
         try (CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/actors.csv"))) {
             List<String[]> file = reader.readAll();
@@ -46,6 +48,9 @@ public class LocalCinemaClient implements CinemaClient {
         }
     }
 
+    /**
+     * Загрузка фильмов из базы данных
+     */
     private void loadFilms() {
         try (CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/films.csv"))) {
             List<String[]> file = reader.readAll();
@@ -72,11 +77,20 @@ public class LocalCinemaClient implements CinemaClient {
         }
     }
 
+    /**
+     * Получить все фильмы
+     * @return все фильмы
+     */
     @Override
     public ArrayList<Film> getFilms() {
         return new ArrayList<>(films);
     }
 
+    /**
+     * Получить фильмы с рейтингом rate
+     * @param rate рейтинг
+     * @return фильмы с рейтингом
+     */
     @Override
     public ArrayList<Film> getFilms(float rate) {
         ArrayList<Film> films = new ArrayList<>();
@@ -87,6 +101,11 @@ public class LocalCinemaClient implements CinemaClient {
         return films;
     }
 
+    /**
+     * Получить фильмы с переданными жанрам
+     * @param genres жанры
+     * @return фильмы с такими жанрами
+     */
     @Override
     public ArrayList<Film> getFilms(List<String> genres) {
         ArrayList<Film> films = new ArrayList<>();
@@ -102,6 +121,11 @@ public class LocalCinemaClient implements CinemaClient {
         return films;
     }
 
+    /**
+     * Получить фильмы по году выхода.
+     * @param year год выхода
+     * @return фильмы этого года
+     */
     @Override
     public ArrayList<Film> getFilms(int year) {
         ArrayList<Film> films = new ArrayList<>();
@@ -113,6 +137,11 @@ public class LocalCinemaClient implements CinemaClient {
         return films;
     }
 
+    /**
+     * Получить фильмы, снятые режиссером
+     * @param director имя режиссера
+     * @return фильмы этого режиссера
+     */
     @Override
     public ArrayList<Film> getFilms(String director) {
         ArrayList<Film> films = new ArrayList<>();
@@ -124,6 +153,11 @@ public class LocalCinemaClient implements CinemaClient {
         return films;
     }
 
+    /**
+     * Получить фильм по названию
+     * @param name название фильма
+     * @return фильм с этим названием
+     */
     @Override
     public Film getFilm(String name) {
         for (Film film : this.films) {
@@ -134,6 +168,11 @@ public class LocalCinemaClient implements CinemaClient {
         return null;
     }
 
+    /**
+     * Получить фильмы с данным актером
+     * @param name имя актера
+     * @return фильмы с участием этого актера
+     */
     @Override
     public ArrayList<Film> getFilmsByActor(String name) {
         ArrayList<Film> films = new ArrayList<>();
@@ -145,6 +184,10 @@ public class LocalCinemaClient implements CinemaClient {
         return films;
     }
 
+    /**
+     * Получить список всех актеров
+     * @return список всех актеров
+     */
     @Override
     public ArrayList<Actor> getActors() {
         return new ArrayList<>(actors.values());
